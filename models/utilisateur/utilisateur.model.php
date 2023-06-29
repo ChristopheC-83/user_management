@@ -14,6 +14,13 @@ function getPasswordUser($login)
     $stmt->closeCursor();
     return $resultat['password'];
 }
+
+function isCombinaisonValide($login, $password)
+{
+    $passwordBd = getPasswordUser($login);
+    return password_verify($password, $passwordBd);
+}
+
 function getMailUser($login)
 {
     $req = "SELECT mail FROM user_management WHERE login = :login";
@@ -35,11 +42,6 @@ function getImgSiteUser($login)
     return $resultat['img_site'];
 }
 
-function isCombinaisonValide($login, $password)
-{
-    $passwordBd = getPasswordUser($login);
-    return password_verify($password, $passwordBd);
-}
 
 
 function compteActif($login)

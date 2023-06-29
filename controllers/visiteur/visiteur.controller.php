@@ -1,17 +1,27 @@
 <?php
 
+
+header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+
 require_once("./controllers/functionController.controller.php");
 require_once("./models/visiteur/visiteur.model.php");
 require_once("./controllers/functionController.controller.php");
 
 
+
+
 function pageAccueil()
 {
-    if(isset($_SESSION['profil']['login'])) {
-        $datas =getUserInformation($_SESSION['profil']['login']);
-    }else{
+    if (isset($_SESSION['profil']['login'])) {
+        $datas = getUserInformation($_SESSION['profil']['login']);
+    } else {
         $datas = "";
     }
+
+    $userinfo = getUserInfo();
 
     $data_page = [
         "page_description" => "Description accueil",
@@ -20,7 +30,7 @@ function pageAccueil()
         "template" => "views/commons/template.php",
         "css" => "accueilContainer",
         "utilisateur" => $datas,
-
+        "userinfo" => $userinfo,
     ];
     genererPage($data_page);
 }
@@ -38,45 +48,26 @@ function pageErreur($msg)
     genererPage($data_page);
 }
 
-function pageLogin()
+function pageJsonUserInfo()
 {
-    $data_page = [
-        "page_description" => "Page de connexion au site",
-        "page_title" => "Connexion",
-        "view" => "views/pages/visiteur/login.view.php",
-        "template" => "views/commons/template.php",
-        "css" => "loginContainer",
-        "js" => ["connexion.js"],
-
-    ];
-    genererPage($data_page);
+    $userinfo = getUserInfo();
+    sendJSON($userinfo);
 }
 
-function creerCompte()
+function createUser($name, $age, $height ,$avatar)
 {
 
-    $data_page = [
-        "page_description" => "Page de création compte",
-        "page_title" => "Enregistrement",
-        "view" => "views/pages/visiteur/creerCompte.view.php",
-        "template" => "views/commons/template.php",
-        "css" => "creationContainer",
-        "js" => ["gestionComptes.js"],
+    header('Access-Control-Allow-Origin: http://localhost:3000');
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type');
 
-    ];
-    genererPage($data_page);
+    
+    createUserBD($name, $age, $height ,$avatar);
 }
 
-function mdpOublie()
-{
-
-    $data_page = [
-        "page_description" => "Page de récupération d'un mot de passe",
-        "page_title" => "un oubli ?",
-        "view" => "views/pages/visiteur/mdpOublie.view.php",
-        "template" => "views/commons/template.php",
-        "css" => "loginContainer",
-
-    ];
-    genererPage($data_page);
+function deleteUser($id){
+    deleteUserBD($id);
+}
+function updateUser($id, $name, $age, $height, $avatar){
+    updateUserBD($id, $name, $age, $height, $avatar);
 }
