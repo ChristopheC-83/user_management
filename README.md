@@ -1,25 +1,34 @@
 # user_management
+<h2>Structure de Base Site internet Dynamique</h2>
+<h3>PHP / MVC /SQL / SASS / GSAP</h3>
 
-Reprend le code de gestion_utilisateurs mais en procédural.
-Pas de POO ici !
+<pre style="font-size:16px">
+    Base de site :
 
-On a du plus (pas de pb d'héritage en cas de modifications du code d'une classe mère par exemple)
-on a du moins (structure moins marquée, trop de liberté dans l'appel des fonctions)
-Faut choisir !!!
+    Structure MVC
+    Paradigme procédural
+    Base données utilisateurs jointe
+    CSS géré par SASS
+    Cookie de connexion paramétré sur 20 minutes de viabilité
 
-A réutiliser : structure de base de travail pour création d'un site en php / MVC :
+    gestion 
 
-Ce dossier est une base pour gérer :
+        enregistrement
+            connexion avec validation par lien mail
+            gestion "mot de passe oublié"
 
-des visiteurs.
-des utilisateurs inscrits et connectés avec des accés et droits supplémentaires.
-des administrateurs avec des accés et droits supplémentaites.
-L'architecture est sur une base MVC.
+        pour utilisateur
+            demande renvoi mail validaion compte
+            modif mdp, mail
+            image de profil perso ou fourni par site
+            suppression compte
 
-Un cookie gère la déconnexion en cas de non utilisation. Réglé ici sur 20 minutes.
+        pour admin
+            visualisations de tous les comptes
+            validation comptes
+            gestion roles
+            suppression comptes
 
-Le style s'appuie sur le preprocesseur SASS.
 
-Une petite animation GSAP traine, pour le fun ;-) C'est discret !
 
-ATTENTION, en aucun cas l'esthétique du site a été pris en compte.... on part ici d'un site non stylé !
+    </pre>
