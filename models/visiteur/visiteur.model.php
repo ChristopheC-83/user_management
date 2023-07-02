@@ -71,29 +71,74 @@ function deleteUserBD($id){
 
 }
 
-function updateUserBD($id, $name, $age, $height, $avatar){
+function updateUserNameBD($id, $name){
 
-    $req = "UPDATE userinfo2 set 
-    name = :name,
-    age = :age,
-    height = :height,
-    avatar = :avatar,
-    WHERE id = :id
-    
+    $req = "UPDATE userinfo2 SET 
+    name = :name
+    WHERE id = :id   
     ";
     $stmt = getBDD()->prepare($req);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':name',$name, PDO::PARAM_STR);
-    $stmt->bindValue(':age', $age, PDO::PARAM_INT);
-    $stmt->bindValue(':height', $height, PDO::PARAM_INT);
+    $stmt->execute();
+    $ModifOK = ($stmt->rowCount() > 0);
+    $stmt->closeCursor();
+    return $ModifOK;
+}
+function updateUserAvatarBD($id,$avatar){
+
+    $req = "UPDATE userinfo2 SET 
+    avatar = :avatar
+    WHERE id = :id   
+    ";
+    $stmt = getBDD()->prepare($req);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':avatar', $avatar, PDO::PARAM_STR);
     $stmt->execute();
     $ModifOK = ($stmt->rowCount() > 0);
     $stmt->closeCursor();
     return $ModifOK;
+}
+function updateUserAgeBD($id,$age){
 
+    $req = "UPDATE userinfo2 SET 
+    age = :age
+    WHERE id = :id   
+    ";
+    $stmt = getBDD()->prepare($req);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':age', $age, PDO::PARAM_INT);
+    $stmt->execute();
+    $ModifOK = ($stmt->rowCount() > 0);
+    $stmt->closeCursor();
+    return $ModifOK;
+}
+function updateUserHeightBD($id,$height){
 
+    $req = "UPDATE userinfo2 SET 
+    height = :height
+    WHERE id = :id   
+    ";
+    $stmt = getBDD()->prepare($req);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':height', $height, PDO::PARAM_INT);
+    $stmt->execute();
+    $ModifOK = ($stmt->rowCount() > 0);
+    $stmt->closeCursor();
+    return $ModifOK;
+}
 
+function userToUpdateFromBD($id){
+    $req = "SELECT * 
+    FROM userinfo2
+    WHERE id =:id
+    ";
+    $stmt = getBDD()->prepare($req);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $info = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $info;
 
 
 }

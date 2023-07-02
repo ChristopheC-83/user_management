@@ -4,6 +4,7 @@
     
     
     <?=afficherTableau($userinfo)?>
+    <?=afficherTableau($imageList)?>
    
    
 

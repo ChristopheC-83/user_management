@@ -32,6 +32,9 @@ try {
         case "json_user_info":
             pageJsonUserInfo();
             break;
+        case "imageToJson":
+            imageToJson();
+            break;
 
         case "create_user":
 
@@ -53,17 +56,19 @@ try {
             break;
 
         case "update_user":
-
-            if (!empty($_POST)) {
+                
+                $id = secureHTML($_POST['id']);
                 $name = secureHTML($_POST['name']);
                 $age = secureHTML($_POST['age']);
                 $height = secureHTML($_POST['height']);
                 $avatar = secureHTML($_POST['avatar']);
                 updateUser($id, $name, $age, $height, $avatar);
-            }
+            
             break;
 
-
+        case "json_user_to_update":
+            json_user_to_update($url[1]);
+            break;
 
 
         default:
@@ -72,3 +77,4 @@ try {
 } catch (Exception $e) {
     pageErreur($e->getMessage());
 }
+ 
